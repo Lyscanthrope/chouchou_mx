@@ -1,10 +1,10 @@
 units:
   # Proxy Spacing Variables
-  kx: cx
-  ky: cy
+  kx: U
+  ky: U
   # Padding Variables
-  px: kx + 2
-  py: ky + 2
+  px: kx+0.5
+  py: ky
   # Double Padding Variables
   dpx: kx + 8
   dpy: ky + 8
@@ -27,7 +27,7 @@ points:
       columns:
         pinky:
           key:
-            splay: 15
+            splay: 10
           rows:
             top.mcu_pin: GP26
             bottom.mcu_pin: GP12
@@ -35,9 +35,9 @@ points:
             bottom.mirror.mcu_pin: GP7
         ring:
           key:
-            stagger: 8
-            spread: 23
-            splay: -10
+            stagger: 12
+            spread: px+0.1
+            splay: -2
           rows:
             top.mcu_pin: GP27
             bottom.mcu_pin: GP13
@@ -46,8 +46,8 @@ points:
         middle:
           key:
             stagger: 5
-            spread: 21
-            splay: -5
+            spread: px
+            splay: -2
           rows:
             top.mcu_pin: GP28
             bottom.mcu_pin: GP14
@@ -56,8 +56,8 @@ points:
         index:
           key:
             stagger: -8
-            spread: 23
-            splay: -5
+            spread: px
+            splay: -2
           rows:
             top.mcu_pin: GP29
             bottom.mcu_pin: GP15
@@ -72,7 +72,7 @@ points:
         spread: 1kx
       anchor:
         ref: matrix_index_bottom
-        shift: [14, 0]
+        shift: [7,0]
       columns:
         inner:
           key:
@@ -120,66 +120,66 @@ outlines:
       fillet: 2
       points:
         - ref: matrix_pinky_top
-          shift: [-0.5px,0.5py]
+          shift: [-0.55px,0.55py]
         - ref: matrix_ring_top
-          shift: [-0.5px,0.5py]
+          shift: [-0.55px,0.55py]
         - ref: matrix_middle_top
-          shift: [-0.5px,0.5py]
+          shift: [-0.55px,0.55py]
         - ref: matrix_middle_top
-          shift: [0.5px,0.5py]
+          shift: [0.55px,0.55py]
         - ref: matrix_index_top
-          shift: [0.5px,0.5py]
+          shift: [0.55px,0.55py]
         - ref: mirror_matrix_index_top
-          shift: [0.5px,0.5py]
+          shift: [0.55px,0.55py]
         - ref: mirror_matrix_middle_top
-          shift: [0.5px,0.5py]
+          shift: [0.55px,0.55py]
         - ref: mirror_matrix_middle_top
-          shift: [-0.5px,0.5py]
+          shift: [-0.55px,0.55py]
         - ref: mirror_matrix_ring_top
-          shift: [-0.5px,0.5py]
+          shift: [-0.55px,0.55py]
         - ref: mirror_matrix_pinky_top
-          shift: [-0.5px,0.5py]
+          shift: [-0.55px,0.55py]
         - ref: mirror_matrix_pinky_bottom
-          shift: [-0.5px,-0.5py]
+          shift: [-0.55px,-0.55py]
         - ref: mirror_matrix_pinky_bottom
-          shift: [0.5px,-0.5py]
+          shift: [0.55px,-0.55py]
         - ref: mirror_matrix_ring_bottom
-          shift: [-0.6px,-0.5py]
+          shift: [-0.45px,-0.55py]
         - ref: mirror_matrix_index_bottom
-          shift: [-0.5px,-0.5py]
+          shift: [-0.45px,-0.6py]
         - ref: mirror_thumbs_inner_cluster
-          shift: [1.26px,0.5py]
+          shift: [1.px,0.55py]
         - ref: mirror_thumbs_inner_cluster
-          shift: [0.75px,0.5py]
+          shift: [0.75px,0.55py]
         - ref: mirror_thumbs_inner_cluster
-          shift: [-0.75px,0.5py]
+          shift: [-0.85px,0.55py]
         - ref: mirror_thumbs_inner_cluster
-          shift: [-0.75px,-0.5py]
+          shift: [-0.85px,-0.55py]
         - ref: mirror_thumbs_outer_cluster
-          shift: [-0.75px,-0.5py]
+          shift: [-0.85px,-0.55py]
         - ref: mirror_thumbs_outer_cluster
-          shift: [0.75px,-0.5py]
+          shift: [0.85px,-0.55py]
         - ref:
             aggregate.parts: [matrix_index_top, mirror_matrix_index_top]
             shift: [0,-40]
         - ref: thumbs_outer_cluster
-          shift: [0.75px,-0.5py]
+          shift: [0.85px,-0.55py]
         - ref: thumbs_outer_cluster
-          shift: [-0.75px,-0.5py]
+          shift: [-0.85px,-0.55py]
         - ref: thumbs_inner_cluster
-          shift: [-0.75px,-0.5py]
+          shift: [-0.85px,-0.55py]
         - ref: thumbs_inner_cluster
-          shift: [-0.75px,0.5py]
+          shift: [-0.85px,0.55py]
         - ref: thumbs_inner_cluster
-          shift: [1.26px,0.5py]
+          shift: [1.px,0.55py]
         - ref: matrix_index_bottom
-          shift: [-0.5px,-0.5py]
+          shift: [-0.45px,-0.6py]
         - ref: matrix_ring_bottom
-          shift: [-0.6px,-0.5py]
+          shift: [-.45px,-0.55py]
         - ref: matrix_pinky_bottom
-          shift: [0.5px,-0.5py]
+          shift: [0.55px,-0.55py]
         - ref: matrix_pinky_bottom
-          shift: [-0.5px,-0.5py]
+          shift: [-0.55px,-0.55py]
   xlBoard:
     - what: outline
       name: board
@@ -200,13 +200,13 @@ outlines:
       what: circle
       where:
         ref: [matrix_pinky_top]
-        shift: [0.5px + 3,0.5py + 3]
+        shift: [0.5px - 3,0.5py + 3]
     holeTopRight:
       radius: screwRadius
       what: circle
       where:
         ref: [mirror_matrix_pinky_top]
-        shift: [0.5px + 3,0.5py + 3]
+        shift: [0.5px - 3,0.5py + 3]
     holeBottomLeft:
       radius: screwRadius
       what: circle
@@ -224,13 +224,13 @@ outlines:
       what: circle
       where:
         ref: [matrix_index_top]
-        shift: [-0.5px - 3, 11]
+        shift: [-0.5px+0.7, 12]
     holeMiddleTopRight:
       radius: screwRadius
       what: circle
       where:
         ref: [mirror_matrix_index_top]
-        shift: [-0.5px - 3, 11]
+        shift: [-0.5px+0.7, 12]
     holeMiddleBottomLeft:
       radius: screwRadius
       what: circle
@@ -248,22 +248,22 @@ outlines:
       name: mounting
       expand: standoffThickness
 pcbs:
-  chouchou:
+  chouchou_mx:
     outlines:
       main:
         outline:
           board
     footprints:
-      choc_hotswap:
-        what: choc
+      mx_hotswap:
+        what: mx
         where: true
         params:
           keycaps: true
           hotswap: true
           from: "{{mcu_pin}}"
           to: GND
-      choc:
-        what: choc
+      mx:
+        what: mx
         where: true
         adjust:
           rotate: 180
@@ -283,12 +283,12 @@ pcbs:
         what: mountinghole
         where:
           ref: [matrix_pinky_top]
-          shift: [0.5px + 3,0.5py + 3]
+          shift: [0.5px - 3,0.5py + 3]
       holeTopRight:
         what: mountinghole
         where:
           ref: [mirror_matrix_pinky_top]
-          shift: [0.5px + 3,0.5py + 3]
+          shift: [0.5px - 3,0.5py + 3]
       holeBottomLeft:
         what: mountinghole
         where:
@@ -303,12 +303,12 @@ pcbs:
         what: mountinghole
         where:
           ref: [matrix_index_top]
-          shift: [-0.5px - 3, 11]
+          shift: [-0.5px+0.7, 12]
       holeMiddleTopRight:
         what: mountinghole
         where:
           ref: [mirror_matrix_index_top]
-          shift: [-0.5px - 3, 11]
+          shift: [-0.5px+0.7, 12]
       holeMiddleBottomLeft:
         what: mountinghole
         where:
