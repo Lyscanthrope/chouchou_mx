@@ -72,7 +72,7 @@ points:
         spread: 1kx
       anchor:
         ref: matrix_index_bottom
-        shift: [7,0]
+        shift: [7,7]
       columns:
         inner:
           key:

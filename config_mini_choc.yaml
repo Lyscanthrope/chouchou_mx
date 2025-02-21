@@ -1,0 +1,357 @@
+units:
+  # Proxy Spacing Variables
+  kx: cx
+  ky: cy
+  # Padding Variables
+  px: kx+0.5
+  py: ky
+  # Double Padding Variables
+  dpx: kx + 8
+  dpy: ky + 8
+  # M2 Screw Inserts
+  screwRadius: 1.5
+  standoffThickness: 3
+  standoffDepth: 3
+  # Case
+  pcbThickness: 1.6
+  baseThickness: 3
+  wallThickness: 3
+points:
+  zones:
+    matrix:
+      anchor:
+        shift: [100, -100]
+      rotate: -30
+      key:
+        padding: 1ky
+      columns:
+        pinky:
+          key:
+            splay: 10
+          rows:
+            top.mcu_pin: GP26
+            bottom.mcu_pin: GP12
+            top.mirror.mcu_pin: GP3
+            bottom.mirror.mcu_pin: GP7
+        ring:
+          key:
+            stagger: 12
+            spread: px+0.1
+            splay: -2
+          rows:
+            top.mcu_pin: GP27
+            bottom.mcu_pin: GP13
+            top.mirror.mcu_pin: GP2
+            bottom.mirror.mcu_pin: GP6
+        middle:
+          key:
+            stagger: 5
+            spread: px
+            splay: -2
+          rows:
+            top.mcu_pin: GP28
+            bottom.mcu_pin: GP14
+            top.mirror.mcu_pin: GP1
+            bottom.mirror.mcu_pin: GP5
+        index:
+          key:
+            stagger: -8
+            spread: px
+            splay: -2
+          rows:
+            top.mcu_pin: GP29
+            bottom.mcu_pin: GP15
+            top.mirror.mcu_pin: GP0
+            bottom.mirror.mcu_pin: GP4
+      rows:
+        bottom:
+        top:
+    thumbs:
+      key:
+        padding: 1ky
+        spread: 1kx
+      anchor:
+        ref: matrix_index_bottom
+        shift: [7,5]
+      columns:
+        inner:
+          key:
+            width: 1.5kx
+            splay: 3
+            rotate: 90
+            mcu_pin: GP11
+            mirror.mcu_pin: GP8
+        outer:
+          key:
+            width: 1.5kx
+            rotate: 90
+            mcu_pin: GP10
+            mirror.mcu_pin: GP9
+      rows:
+        cluster:
+          shift: [0, -2ky]
+  mirror: &mirror
+    ref: matrix_index_top
+    distance: 2.5kx
+outlines:
+  raw:
+    - what: rectangle
+      where: true
+      size: [px, py]
+  keys:
+    - what: rectangle
+      where: true
+      size: [kx-0.5,ky-0.5]
+    - what: rectangle
+      where: thumbs_inner_cluster
+      size: [1.5kx,ky-0.5]
+    - what: rectangle
+      where: thumbs_outer_cluster
+      size: [1.5kx,ky-0.5]
+    - what: rectangle
+      where: mirror_thumbs_inner_cluster
+      size: [1.5kx,ky-0.5]
+    - what: rectangle
+      where: mirror_thumbs_outer_cluster
+      size: [1.5kx,ky-0.5]
+  board:
+    - what: polygon
+      operation: stack
+      fillet: 2
+      points:
+        - ref: matrix_pinky_top
+          shift: [-0.55px,0.55py]
+        - ref: matrix_ring_top
+          shift: [-0.55px,0.55py]
+        - ref: matrix_middle_top
+          shift: [-0.55px,0.55py]
+        - ref: matrix_middle_top
+          shift: [0.55px,0.55py]
+        - ref: matrix_index_top
+          shift: [0.55px,0.55py]
+        - ref: mirror_matrix_index_top
+          shift: [0.55px,0.55py]
+        - ref: mirror_matrix_middle_top
+          shift: [0.55px,0.55py]
+        - ref: mirror_matrix_middle_top
+          shift: [-0.55px,0.55py]
+        - ref: mirror_matrix_ring_top
+          shift: [-0.55px,0.55py]
+        - ref: mirror_matrix_pinky_top
+          shift: [-0.55px,0.55py]
+        - ref: mirror_matrix_pinky_bottom
+          shift: [-0.55px,-0.55py]
+        - ref: mirror_matrix_pinky_bottom
+          shift: [0.55px,-0.55py]
+        - ref: mirror_matrix_ring_bottom
+          shift: [-0.45px,-0.55py]
+        - ref: mirror_matrix_index_bottom
+          shift: [-0.45px,-0.6py]
+        - ref: mirror_thumbs_inner_cluster
+          shift: [1.px,0.55py]
+        - ref: mirror_thumbs_inner_cluster
+          shift: [0.75px,0.55py]
+        - ref: mirror_thumbs_inner_cluster
+          shift: [-0.85px,0.55py]
+        - ref: mirror_thumbs_inner_cluster
+          shift: [-0.85px,-0.55py]
+        - ref: mirror_thumbs_outer_cluster
+          shift: [-0.85px,-0.55py]
+        - ref: mirror_thumbs_outer_cluster
+          shift: [0.85px,-0.55py]
+        - ref:
+            aggregate.parts: [matrix_index_top, mirror_matrix_index_top]
+            shift: [0,-40]
+        - ref: thumbs_outer_cluster
+          shift: [0.85px,-0.55py]
+        - ref: thumbs_outer_cluster
+          shift: [-0.85px,-0.55py]
+        - ref: thumbs_inner_cluster
+          shift: [-0.85px,-0.55py]
+        - ref: thumbs_inner_cluster
+          shift: [-0.85px,0.55py]
+        - ref: thumbs_inner_cluster
+          shift: [1.px,0.55py]
+        - ref: matrix_index_bottom
+          shift: [-0.45px,-0.6py]
+        - ref: matrix_ring_bottom
+          shift: [-.45px,-0.55py]
+        - ref: matrix_pinky_bottom
+          shift: [0.55px,-0.55py]
+        - ref: matrix_pinky_bottom
+          shift: [-0.55px,-0.55py]
+  xlBoard:
+    - what: outline
+      name: board
+      expand: wallThickness
+  combo:
+    - name: board
+    - operation: subtract
+      name: keys
+  case:
+    - name: xlBoard
+    - operation: subtract
+      name: board
+    - operation: add
+      name: keys
+  mounting:
+    holeTopLeft:
+      radius: screwRadius
+      what: circle
+      where:
+        ref: [matrix_pinky_top]
+        shift: [0.5px - 3,0.5py + 3]
+    holeTopRight:
+      radius: screwRadius
+      what: circle
+      where:
+        ref: [mirror_matrix_pinky_top]
+        shift: [0.5px - 3,0.5py + 3]
+    holeBottomLeft:
+      radius: screwRadius
+      what: circle
+      where:
+        ref: [matrix_middle_bottom]
+        shift: [0,-0.5py - 3]
+    holeBottomRight:
+      radius: screwRadius
+      what: circle
+      where:
+        ref: [mirror_matrix_middle_bottom]
+        shift: [0,-0.5py - 3]
+    holeMiddleTopLeft:
+      radius: screwRadius
+      what: circle
+      where:
+        ref: [matrix_index_top]
+        shift: [-0.5px+0.7, 12]
+    holeMiddleTopRight:
+      radius: screwRadius
+      what: circle
+      where:
+        ref: [mirror_matrix_index_top]
+        shift: [-0.5px+0.7, 12]
+    holeMiddleBottomLeft:
+      radius: screwRadius
+      what: circle
+      where:
+        ref: [thumbs_outer_cluster]
+        shift: [-0.5kx - 3, 0.5kx]
+    holeMiddleBottomRight:
+      radius: screwRadius
+      what: circle
+      where:
+        ref: [mirror_thumbs_outer_cluster]
+        shift: [-0.5kx - 3, 0.5kx]
+  standoff:
+    - what: outline
+      name: mounting
+      expand: standoffThickness
+pcbs:
+  chouchou_mini_choc:
+    outlines:
+      main:
+        outline:
+          board
+    footprints:
+      choc_hotswap:
+        what: choc
+        where: true
+        params:
+          keycaps: true
+          hotswap: true
+          from: "{{mcu_pin}}"
+          to: GND
+      choc:
+        what: choc
+        where: true
+        adjust:
+          rotate: 180
+        params:
+          keycaps: true
+          from: "{{mcu_pin}}"
+          to: GND
+      mcu:
+        what: rp2040zero
+        where:
+          ref.aggregate.parts: [matrix_index_top, mirror_matrix_index_top]
+          shift: [-10,-24]
+        params:
+          reverse: true
+          GND: GND
+      holeTopLeft:
+        what: mountinghole
+        where:
+          ref: [matrix_pinky_top]
+          shift: [0.5px - 3,0.5py + 3]
+      holeTopRight:
+        what: mountinghole
+        where:
+          ref: [mirror_matrix_pinky_top]
+          shift: [0.5px - 3,0.5py + 3]
+      holeBottomLeft:
+        what: mountinghole
+        where:
+          ref: [matrix_middle_bottom]
+          shift: [0,-0.5py - 3]
+      holeBottomRight:
+        what: mountinghole
+        where:
+          ref: [mirror_matrix_middle_bottom]
+          shift: [0,-0.5py - 3]
+      holeMiddleTopLeft:
+        what: mountinghole
+        where:
+          ref: [matrix_index_top]
+          shift: [-0.5px+0.7, 12]
+      holeMiddleTopRight:
+        what: mountinghole
+        where:
+          ref: [mirror_matrix_index_top]
+          shift: [-0.5px+0.7, 12]
+      holeMiddleBottomLeft:
+        what: mountinghole
+        where:
+          ref: [thumbs_outer_cluster]
+          shift: [-0.5kx - 3, 0.5kx]
+      holeMiddleBottomRight:
+        what: mountinghole
+        where:
+          ref: [mirror_thumbs_outer_cluster]
+          shift: [-0.5kx - 3, 0.5kx]
+cases:
+  bottom:
+    - name: xlBoard
+      extrude: baseThickness
+  _outerWall:
+    - name: xlBoard
+      extrude: baseThickness + standoffDepth + pcbThickness
+  _innerWall:
+    - name: board
+      extrude: baseThickness + standoffDepth + pcbThickness
+  wall:
+    - what: case
+      name: _outerWall
+      operation: add
+    - what: case
+      name: _innerWall
+      operation: subtract
+  _holes:
+    - name: mounting
+      extrude: baseThickness + standoffDepth
+  _standoffs:
+    - name: standoff
+      extrude: baseThickness + standoffDepth
+  case:
+    - what: case
+      name: _standoffs
+      operation: add
+    - what: case
+      name: _holes
+      operation: subtract
+    - what: case
+      name: bottom
+      operation: add
+    - what: case
+      name: wall
+      operation: add
