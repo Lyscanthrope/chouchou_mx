@@ -1,10 +1,9 @@
 from kmk.extensions.media_keys import MediaKeys
 from kmk.keys import KC
 from kmk.modules.sticky_keys import StickyKeys
+import kb
 
-from kb import ChouChou
-
-keyboard = ChouChou()
+keyboard = kb.French_Chouchou()
 
 # keyboard.debug_enabled = True
 
